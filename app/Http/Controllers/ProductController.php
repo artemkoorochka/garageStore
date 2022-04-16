@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -47,7 +47,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         Product::create(array_merge($request->only(["name", "price"]), ["currency" => "$"]));
         return redirect()->route("admin.index");
@@ -84,7 +84,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request  $request, int  $id)
+    public function update(ProductRequest $request, int  $id)
     {
         $product = Product::find($id);
         $product->update($request->only(['name', 'price']));

@@ -21,11 +21,17 @@
                 @endisset
                 <div class="col-md-8">
                     <label class="form-label">Name</label>
-                    <input type="text" class="form-control" name="name">
+                    <input type="text"
+                           class="form-control"
+                           name="name"
+                           value="{{old('name')}}">
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Price $</label>
-                    <input type="text" class="form-control" name="price">
+                    <input type="text"
+                           class="form-control"
+                           value="{{old('price')}}"
+                           name="price">
                 </div>
 
                 <div class="col-12">

@@ -5,15 +5,7 @@
 @endsection
 
 @section("content")
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
     <div class="row">
         <div class="col-3">
             <div class="list-group">
@@ -31,18 +23,19 @@
                            class="form-control @error('name') is-invalid @enderror"
                            name="name"
                            value="{{old('name', $product->name)}}">
-
                     @error('name')
-                    <div class="invalid-feedback">{{ $message }}</div>
+                        <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
-
                 </div>
                 <div class="col-md-4">
                     <label class="form-label">Price $</label>
                     <input type="text"
-                           class="form-control"
+                           class="form-control @error('price') is-invalid @enderror"
                            name="price"
                            value="{{old('price', $product->price)}}">
+                    @error('price')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="col-12">

@@ -16,7 +16,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
         $products = compact("products");
-        return view("catalog", $products);
+        return view("product.catalog", $products);
     }
 
     /**
@@ -28,7 +28,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
         $products = compact("products");
-        return view("index", $products);
+        return view("product.admin", $products);
     }
 
     /**
@@ -38,7 +38,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view("form");
+        return view("product.form");
     }
 
     /**
@@ -56,12 +56,13 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Product $product)
+    public function show(int $id)
     {
-        return view("show");
+
+        return view("product.show");
     }
 
     /**
@@ -93,11 +94,13 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Product $product)
+    public function destroy(int $id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return redirect()->route("admin.index");
     }
 }

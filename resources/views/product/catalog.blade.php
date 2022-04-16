@@ -11,9 +11,9 @@
         <div class="col">
             <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-repeat: no-repeat; background-image: url('https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg');">
                 <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
-                    <a href="#" class="text-white-50 text-decoration-none text-center pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+                    <div class="text-white-50 text-decoration-none text-center pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
                         {{$product->name}}
-                    </a>
+                    </div>
                     <ul class="list-unstyled mt-auto">
 
                         <li class="text-secondary">

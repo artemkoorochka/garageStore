@@ -26,11 +26,13 @@
                     <tr>
                         <th scope="row">{{$product->id}}</th>
                         <td>
-                            <div class="mb-2 h4">{{$product->name}}</div>
-                            <div>
-                                <a href="{{route('admin.edit', $product)}}" class="btn btn-sm btn-outline-primary">Edit</a>
-                                <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
-                            </div>
+                            <div class="mb-2 h4"><a href="{{route('admin.edit', $product->id)}}">{{$product->name}}</a></div>
+                            <form method="post" action="{{route('admin.destroy', $product->id)}}" class="pl-2">
+                                @csrf
+                                @method("DELETE")
+                                <a href="{{route('admin.edit', $product->id)}}" class="btn btn-sm btn-outline-primary">Edit</a>
+                                <input type="submit" class="btn btn-sm btn-outline-danger" value="Delete">
+                            </form>
                         </td>
                         <td class="h2">{{$product->price}} {{$product->currency}}</td>
                     </tr>

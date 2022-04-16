@@ -1,14 +1,7 @@
 @extends("template")
 
 @section("title")
-
-    @if(isset($product))
-        {{dd($product)}}
-        Edit {{$product->id}}
-    @else
-        New product
-    @endif
-
+    New product
 @endsection
 
 @section("content")
@@ -21,13 +14,7 @@
             </div>
         </div>
         <div class="col-9">
-            <form class="row g-3"
-                  @if(isset($product))
-                      action="{{route('admin.store')}}"
-                  @else
-                      action="{{route('admin.store')}}"
-                  @endif
-                  method="post">
+            <form class="row g-3" action="{{route('admin.store')}}" method="post">
                 @csrf
                 @isset($product)
                     @method('PUT')
@@ -37,7 +24,7 @@
                     <input type="text" class="form-control" name="name">
                 </div>
                 <div class="col-md-4">
-                    <label class="form-label">Price</label>
+                    <label class="form-label">Price $</label>
                     <input type="text" class="form-control" name="price">
                 </div>
 

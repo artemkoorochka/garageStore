@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route,
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::resource("/admin", ProductController::class);
 Route::redirect("/", "/catalog");
-Route::resource("/catalog", ProductController::class);
+Route::get("/catalog", [ProductController::class, "catalogList"])->name("catalog");

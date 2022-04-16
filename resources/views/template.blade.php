@@ -40,10 +40,10 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">garageStore</a>
+                    <a class="nav-link" href="/">Garage Store</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
+                    <a class="nav-link dropdown-toggle" href="/catalog" id="dropdown02" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
                     <div class="dropdown-menu" aria-labelledby="dropdown02">
                         <div class="dropdown dropend">
                             <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Layouts</a>
@@ -71,6 +71,9 @@
                         </div>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="https://github.com/dallaslu/bootstrap-5-multi-level-dropdown">View on Github</a>
                 </li>
@@ -82,7 +85,7 @@
 <!-- Begin page content -->
 <main class="flex-shrink-0">
     <div class="container">
-        <h1>@yield("title")</h1>
+        <h1 class="mt-5">@yield("title")</h1>
         @yield("content")
     </div>
 </main>

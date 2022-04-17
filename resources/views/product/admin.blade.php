@@ -6,14 +6,15 @@
 
 @section("content")
     <div class="row">
-        <div class="col-3">
+        <div class="col-lg-3 mb-3">
             <div class="list-group">
                 <div class="list-group-item list-group-item-action bg-warning">Products list</div>
                 <a href="{{route('admin.create')}}" class="list-group-item list-group-item-action">Add new product</a>
             </div>
         </div>
-        <div class="col-9">
-            <table class="table">
+        <div class="col-lg-9 mb-3">
+            {{$products->links()}}
+            <table class="table table-responsive-sm">
                 <thead class="bg-warning">
                 <tr>
                     <th scope="col">#</th>
@@ -39,6 +40,8 @@
                 @endforeach
                 </tbody>
             </table>
+
+            <div class="mt-3">{{$products->links()}}</div>
         </div>
     </div>
 @endsection

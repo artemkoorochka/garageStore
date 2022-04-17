@@ -7,13 +7,13 @@
 @section("content")
 
     <div class="row">
-        <div class="col-3">
+        <div class="col-lg-3 mb-3">
             <div class="list-group">
                 <a href="{{route('admin.index')}}" class="list-group-item list-group-item-action">Products list</a>
                 <div class="list-group-item list-group-item-action bg-warning">Add new product</div>
             </div>
         </div>
-        <div class="col-9">
+        <div class="col-lg-9 mb-3">
             <form class="row g-3" action="{{route('admin.store')}}" method="post">
                 @csrf
                 @isset($product)

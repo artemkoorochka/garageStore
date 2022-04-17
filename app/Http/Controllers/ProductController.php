@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function catalogList()
     {
-        $products = Product::all();
+        $products = Product::paginate(6);
         $products = compact("products");
         return view("product.catalog", $products);
     }
@@ -26,7 +26,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(10);
         $products = compact("products");
         return view("product.admin", $products);
     }
@@ -50,7 +50,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         Product::create(array_merge($request->only(["name", "price"]), ["currency" => "$"]));
-        return redirect()->route("admin.index");
+        return redirect()->route("admin.index")->withInfo($request->name . ' is created');
     }
 
     /**
@@ -88,7 +88,7 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->update($request->only(['name', 'price']));
-        return redirect()->route("admin.index");
+        return redirect()->route("admin.index")->withInfo('Updated product - ' . $product->name);
     }
 
     /**
@@ -101,6 +101,6 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
-        return redirect()->route("admin.index");
+        return redirect()->route("admin.index")->withInfo('Product "' . $product->name . '" is deleted');
     }
 }

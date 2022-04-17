@@ -86,6 +86,9 @@
 <main class="flex-shrink-0">
     <div class="container">
         <h1 class="mt-5">@yield("title")</h1>
+        @if(session('info'))
+            <div class="alert alert-info">{{session('info')}}</div>
+        @endisset
         @yield("content")
     </div>
 </main>

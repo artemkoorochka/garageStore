@@ -15,4 +15,8 @@ class Product extends Model
         "currency"
     ];
 
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 }

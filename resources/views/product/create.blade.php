@@ -9,12 +9,12 @@
     <div class="row">
         <div class="col-lg-3 mb-3">
             <div class="list-group">
-                <a href="{{route('admin.index')}}" class="list-group-item list-group-item-action">Products list</a>
+                <a href="{{route('products.index')}}" class="list-group-item list-group-item-action">Products list</a>
                 <div class="list-group-item list-group-item-action bg-warning">Add new product</div>
             </div>
         </div>
         <div class="col-lg-9 mb-3">
-            <form class="row g-3" action="{{route('admin.store')}}" method="post">
+            <form class="row g-3" action="{{route('products.store')}}" method="post">
                 @csrf
                 @isset($product)
                     @method('PUT')
@@ -38,6 +38,30 @@
                     @error('price')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Categories</label>
+                    <ul>
+                        @foreach($categories as $category)
+                            <li>
+
+                                {{old('category[' . $category->id . ']')}}
+
+                                <label><input type="checkbox"
+                                              name="category[]"
+                                              @if(is_array(old('category')) && in_array($category->id, old('category')))
+                                                  checked
+                                              @endif
+                                              value="{{$category->id}}"> {{ $category->title }}</label>
+                                <ul>
+                                    @if(count($category->childs))
+                                        @include('product.cat_checkbox',['childs' => $category->childs])
+                                    @endif
+                                </ul>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
 
                 <div class="col-12">

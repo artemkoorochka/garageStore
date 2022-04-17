@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route,
-    App\Http\Controllers\ProductController;
+    App\Http\Controllers\ProductController,
+    App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route,
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::resource("/admin", ProductController::class);
+
 Route::redirect("/", "/catalog");
 Route::get("/catalog", [ProductController::class, "catalogList"])->name("catalog");
+
+Route::resource("/admin/products", ProductController::class);
+Route::get('/admin/categories', [CategoryController::class, "index"]);
+Route::post('/admin/categories',[CategoryController::class, "store"])->name('menus.store');

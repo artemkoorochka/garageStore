@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use App\Http\Requests\ProductRequest;
+use App\Models\Product,
+    App\Models\Category,
+    App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -16,7 +17,11 @@ class ProductController extends Controller
     {
         $products = Product::paginate(6);
         $products = compact("products");
-        return view("product.catalog", $products);
+
+        $categories = Category::where('parent_id', '=', 0)->get();
+        $categories = compact('categories');
+
+        return view("product.catalog", $products, $categories);
     }
 
     /**
@@ -28,6 +33,7 @@ class ProductController extends Controller
     {
         $products = Product::paginate(10);
         $products = compact("products");
+
         return view("product.admin", $products);
     }
 
@@ -38,7 +44,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view("product.create");
+        $categories = Category::where('parent_id', '=', 0)->get();
+        $categories = compact('categories');
+        return view("product.create", $categories);
     }
 
     /**
@@ -49,8 +57,22 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        Product::create(array_merge($request->only(["name", "price"]), ["currency" => "$"]));
-        return redirect()->route("admin.index")->withInfo($request->name . ' is created');
+        // Product::create(array_merge($request->only(["name", "price"]), ["currency" => "$"]));
+
+        $product = new Product;
+        $product->name = $request->post("name");
+        $product->price = $request->post("price");
+        $product->currency = "$";
+        $product->save();
+
+        $category = $request->post("category");
+
+        if(!empty($category)){
+            $category = Category::find($category);
+            $product->categories()->attach($category);
+        }
+
+        return redirect()->route("products.index")->withInfo($request->name . ' is created');
     }
 
     /**
@@ -74,7 +96,12 @@ class ProductController extends Controller
     public function edit(int $id)
     {
         $product = Product::findOrFail($id);
-        return view("product.edit", compact("product"));
+        $product = compact("product");
+
+        $categories = Category::where('parent_id', '=', 0)->get();
+        $categories = compact('categories');
+
+        return view("product.edit", $product, $categories);
     }
 
     /**
@@ -88,7 +115,15 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->update($request->only(['name', 'price']));
-        return redirect()->route("admin.index")->withInfo('Updated product - ' . $product->name);
+
+        $product->categories()->detach();
+        $category = $request->post("category");
+        if(!empty($category)){
+            $category = Category::find($category);
+            $product->categories()->attach($category);
+        }
+
+        return redirect()->route("products.edit", $id)->withInfo('Updated product - ' . $product->name);
     }
 
     /**
@@ -101,6 +136,6 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $product->delete();
-        return redirect()->route("admin.index")->withInfo('Product "' . $product->name . '" is deleted');
+        return redirect()->route("products.index")->withInfo('Product "' . $product->name . '" is deleted');
     }
 }

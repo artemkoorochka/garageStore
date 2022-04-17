@@ -42,40 +42,14 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Garage Store</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="/catalog" id="dropdown02" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalog</a>
-                    <div class="dropdown-menu" aria-labelledby="dropdown02">
-                        <div class="dropdown dropend">
-                            <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Layouts</a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown-layouts">
-
-                                <div class="dropdown dropend">
-                                    <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Custom</a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-layouts">
-                                        <a class="dropdown-item" href="#">Fullscreen</a>
-                                        <a class="dropdown-item" href="#">Empty</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Magic</a>
-                                    </div>
-                                </div>
-                                <div class="dropdown dropend">
-                                    <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Custom</a>
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-layouts">
-                                        <a class="dropdown-item" href="#">Fullscreen</a>
-                                        <a class="dropdown-item" href="#">Empty</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Magic</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/products">Admin products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/admin">Admin</a>
+                    <a class="nav-link" href="/admin/categories">Admin categories</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="https://github.com/dallaslu/bootstrap-5-multi-level-dropdown">View on Github</a>
+                    <a class="nav-link" href="https://github.com/artemkoorochka/garageStore">View on Github</a>
                 </li>
             </ul>
         </div>
@@ -89,7 +63,11 @@
         @if(session('info'))
             <div class="alert alert-info">{{session('info')}}</div>
         @endisset
-        @yield("content")
+
+        <div class="row">
+            <div class="col-lg-auto">@yield("menu_categories")</div>
+            <div class="col-lg">@yield("content")</div>
+        </div>
     </div>
 </main>
 
@@ -99,53 +77,5 @@
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-<script>
-    (function($bs) {
-        const CLASS_NAME = 'has-child-dropdown-show';
-        $bs.Dropdown.prototype.toggle = function(_orginal) {
-            return function() {
-                document.querySelectorAll('.' + CLASS_NAME).forEach(function(e) {
-                    e.classList.remove(CLASS_NAME);
-                });
-                let dd = this._element.closest('.dropdown').parentNode.closest('.dropdown');
-                for (; dd && dd !== document; dd = dd.parentNode.closest('.dropdown')) {
-                    dd.classList.add(CLASS_NAME);
-                }
-                return _orginal.call(this);
-            }
-        }($bs.Dropdown.prototype.toggle);
-
-        document.querySelectorAll('.dropdown').forEach(function(dd) {
-            dd.addEventListener('hide.bs.dropdown', function(e) {
-                if (this.classList.contains(CLASS_NAME)) {
-                    this.classList.remove(CLASS_NAME);
-                    e.preventDefault();
-                }
-                e.stopPropagation(); // do not need pop in multi level mode
-            });
-        });
-
-        // for hover
-        document.querySelectorAll('.dropdown-hover, .dropdown-hover-all .dropdown').forEach(function(dd) {
-            dd.addEventListener('mouseenter', function(e) {
-                let toggle = e.target.querySelector(':scope>[data-bs-toggle="dropdown"]');
-                if (!toggle.classList.contains('show')) {
-                    $bs.Dropdown.getOrCreateInstance(toggle).toggle();
-                    dd.classList.add(CLASS_NAME);
-                    $bs.Dropdown.clearMenus();
-                }
-            });
-            dd.addEventListener('mouseleave', function(e) {
-                let toggle = e.target.querySelector(':scope>[data-bs-toggle="dropdown"]');
-                if (toggle.classList.contains('show')) {
-                    $bs.Dropdown.getOrCreateInstance(toggle).toggle();
-                }
-            });
-        });
-    })(bootstrap);
-
-</script>
 </body>
 </html>

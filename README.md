@@ -2,4 +2,23 @@
 
 # garageStore
 
-- Have necessary entity models with relations, migrations, and adding test data using the framework tools.
+## Use for develop
+- php 8.1
+- mysql 8.0.28
+- Composer version 2.2.9
+- git clone ... to your-directory
+```
+git clone https://github.com/artemkoorochka/garageStore.git garageStore
+```
+- cd your-directory
+- composer install
+- In .env set mysql connection data
+- Set APP_KEY and APP_DEBUG to false
+- Migrate data base
+```
+php artisan migrate --seed
+```
+- Run Serve project
+```
+php artisan serve
+```

@@ -26,4 +26,7 @@ Route::get('/rest/products', [ProductRestContoller::class, "list"])->name('rest.
 
 Route::get('/admin/categories', [CategoryController::class, "index"]);
 Route::post('/admin/categories',[CategoryController::class, "store"])->name('categories.store');
+Route::get('/admin/categories/{category}',[CategoryController::class, "edit"])->name('categories.edit');
+Route::patch('/admin/categories/{category}',[CategoryController::class, "update"])->name('categories.update');
+Route::delete('/admin/categories/{category}',[CategoryController::class, "destroy"])->name('categories.destroy');
 Route::get('/rest/categories', [CatalogRestContoller::class, "list"])->name('rest.categories');

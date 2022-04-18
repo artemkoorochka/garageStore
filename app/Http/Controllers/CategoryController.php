@@ -25,4 +25,24 @@ class CategoryController extends Controller
         return back()->withInfo('Menu added successfully.');
     }
 
+    public function edit(Category $category){
+        $category = [
+            "id" => $category->id,
+            "title" => $category->title,
+            "parent_id" => $category->parent_id,
+        ];
+        $menus = Category::where('parent_id', '=', 0)->get();
+        $allMenus = Category::pluck('title','id')->all();
+        return view('category.menuTreeedit',compact('menus','allMenus', 'category'));
+    }
+
+    public function update(Request $request, Category $category){
+        $category->update($request->only(['title', 'parent_id']));
+        return back()->withInfo('Menu change successfully.');
+    }
+
+    public function destroy(Category $category){
+        $category->delete();
+        return back()->withInfo('Menu change successfully.');
+    }
 }

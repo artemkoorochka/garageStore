@@ -9,8 +9,9 @@
 <div class="row">
     <div class="col-md-6">
         <h5 class="alert alert-warning">Add New Menu</h5>
-        <form accept="{{ route('categories.store')}}" method="post">
+        <form accept="{{ route('categories.update', $category['id'])}}" method="post">
             @csrf
+            @method('patch')
             @if(count($errors) > 0)
                 <div class="alert alert-danger  alert-dismissible">
                     <button type="button" class="close" data-dismiss="alert">×</button>
@@ -24,7 +25,10 @@
                 <div class="col">
                     <div class="form-group">
                         <label>Title</label>
-                        <input type="text" name="title" class="form-control">
+                        <input type="text"
+                               name="title"
+                               value="{{old('title', $category['title'])}}"
+                               class="form-control">
                     </div>
                 </div>
 
@@ -34,13 +38,17 @@
                         <select class="form-control" name="parent_id">
                             <option selected disabled>Select Parent Menu</option>
                             @foreach($allMenus as $key => $value)
-                                <option value="{{ $key }}">{{ $value}}</option>
+                                <option
+                                        @if($key == $category['parent_id'])
+                                            selected
+                                        @endif
+                                        value="{{ $key }}">{{ $value}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
             </div>
-            <input type="submit" class="btn btn-success" value="Save">
+            <input type="submit" class="btn btn-success" value="Update">
         </form>
     </div>
     <div class="col-md-6">

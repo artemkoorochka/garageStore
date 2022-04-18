@@ -16,12 +16,21 @@ git clone https://github.com/artemkoorochka/garageStore.git garageStore
 - Set APP_KEY and APP_DEBUG to false
 - Migrate data base
 ```
-php artisan migrate --seed
+php artisan migrate
+php artisan db:seed
+php artisan db:seed
 ```
+For Populate the tables with test data. Please run an artisan command db:seed twise it create valid test data
+
 - Run Serve project
 ```
 php artisan serve
 ```
+- Run Unit tests
+```
+php artisan test
+```
+
 # Samples to get data from DB
 ### For a given list of products, get the names of all categories in which products are presented;
 ```mysql

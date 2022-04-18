@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route,
     App\Http\Controllers\ProductController,
-    App\Http\Controllers\CategoryController;
+    App\Http\Controllers\CategoryController,
+    App\Http\Controllers\ProductRestContoller,
+    App\Http\Controllers\CatalogRestContoller,
+    Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +22,8 @@ Route::redirect("/", "/catalog");
 Route::get("/catalog", [ProductController::class, "catalogList"])->name("catalog");
 
 Route::resource("/admin/products", ProductController::class);
+Route::get('/rest/products', [ProductRestContoller::class, "list"])->name('rest.products');
+
 Route::get('/admin/categories', [CategoryController::class, "index"]);
-Route::post('/admin/categories',[CategoryController::class, "store"])->name('menus.store');
+Route::post('/admin/categories',[CategoryController::class, "store"])->name('categories.store');
+Route::get('/rest/categories', [CatalogRestContoller::class, "list"])->name('rest.categories');

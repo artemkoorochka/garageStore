@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-6">
         <h5 class="alert alert-warning">Add New Menu</h5>
-        <form accept="{{ route('menus.store')}}" method="post">
+        <form accept="{{ route('categories.store')}}" method="post">
             @csrf
             @if(count($errors) > 0)
                 <div class="alert alert-danger  alert-dismissible">
